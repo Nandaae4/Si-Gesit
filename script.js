@@ -7,7 +7,7 @@ function zoomImage(src) {
   if (modal && modalImg) {
     modal.classList.remove("hidden");
     modalImg.src = src;
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = "hidden"; // Mencegah layar di-scroll saat foto terbuka
   }
 }
 
@@ -15,7 +15,7 @@ function closeModal() {
   const modal = document.getElementById("imageModal");
   if (modal) {
     modal.classList.add("hidden");
-    document.body.style.overflow = "auto";
+    document.body.style.overflow = "auto"; // Mengembalikan fungsi scroll
   }
 }
 
@@ -24,18 +24,16 @@ function closeModal() {
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
   const btnLainnya = document.getElementById("btnLainnya");
-  const iconLainnya = document.getElementById("iconLainnya"); // Ambil elemen ikon
+  const iconLainnya = document.getElementById("iconLainnya");
   const lainnyaMenu = document.getElementById("lainnyaMenu");
   const lainnyaLinks = document.querySelectorAll(".lainnya-link");
 
-  // Fungsi untuk mereset tombol ke kondisi awal (tertutup)
   const closeMenu = () => {
     lainnyaMenu.classList.add("translate-y-[150%]");
     lainnyaMenu.classList.remove("translate-y-0");
     btnLainnya.classList.add("text-gray-400");
-    btnLainnya.classList.remove("text-emerald-600"); // Pastikan kembali abu-abu
+    btnLainnya.classList.remove("text-emerald-600");
 
-    // Kembalikan ikon ke mode Hamburger
     if (iconLainnya) {
       iconLainnya.classList.remove("fa-times", "rotate-90");
       iconLainnya.classList.add("fa-bars");
@@ -43,35 +41,30 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   if (btnLainnya && lainnyaMenu) {
-    // Toggle menu saat tombol 'Lainnya' ditekan
     btnLainnya.addEventListener("click", (e) => {
-      e.stopPropagation(); // Cegah klik tembus ke document
+      e.stopPropagation();
       lainnyaMenu.classList.toggle("translate-y-[150%]");
       lainnyaMenu.classList.toggle("translate-y-0");
 
-      // Jika menu sedang terbuka
       if (lainnyaMenu.classList.contains("translate-y-0")) {
         btnLainnya.classList.remove("text-gray-400");
-        btnLainnya.classList.add("text-emerald-600"); // Ubah teks jadi hijau
+        btnLainnya.classList.add("text-emerald-600");
 
-        // Ubah ikon ke X dan putar
         if (iconLainnya) {
           iconLainnya.classList.remove("fa-bars");
           iconLainnya.classList.add("fa-times", "rotate-90");
         }
       } else {
-        closeMenu(); // Panggil fungsi tutup jika di-toggle mati
+        closeMenu();
       }
     });
 
-    // Tutup popup secara otomatis saat salah satu link diklik
     lainnyaLinks.forEach((link) => {
       link.addEventListener("click", () => {
         closeMenu();
       });
     });
 
-    // Tutup popup jika layar area mana saja di-tap (di luar menu)
     document.addEventListener("click", (event) => {
       if (
         !lainnyaMenu.contains(event.target) &&
