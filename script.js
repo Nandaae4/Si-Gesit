@@ -1,7 +1,84 @@
 // ==========================================
-// 1. ANIMASI SCROLL
+// 1. FUNGSI ZOOM GAMBAR (MODAL)
 // ==========================================
+function zoomImage(src) {
+  const modal = document.getElementById("imageModal");
+  const modalImg = document.getElementById("modalContent");
+  if (modal && modalImg) {
+    modal.classList.remove("hidden");
+    modalImg.src = src;
+    document.body.style.overflow = "hidden"; // Mencegah layar di-scroll saat foto terbuka
+  }
+}
 
+function closeModal() {
+  const modal = document.getElementById("imageModal");
+  if (modal) {
+    modal.classList.add("hidden");
+    document.body.style.overflow = "auto"; // Mengembalikan fungsi scroll
+  }
+}
+
+// ==========================================
+// 2. FUNGSI MENU MOBILE (HP) - BOTTOM NAV
+// ==========================================
+document.addEventListener("DOMContentLoaded", () => {
+  const btnLainnya = document.getElementById("btnLainnya");
+  const iconLainnya = document.getElementById("iconLainnya");
+  const lainnyaMenu = document.getElementById("lainnyaMenu");
+  const lainnyaLinks = document.querySelectorAll(".lainnya-link");
+
+  const closeMenu = () => {
+    lainnyaMenu.classList.add("translate-y-[150%]");
+    lainnyaMenu.classList.remove("translate-y-0");
+    btnLainnya.classList.add("text-gray-400");
+    btnLainnya.classList.remove("text-emerald-600");
+
+    if (iconLainnya) {
+      iconLainnya.classList.remove("fa-times", "rotate-90");
+      iconLainnya.classList.add("fa-bars");
+    }
+  };
+
+  if (btnLainnya && lainnyaMenu) {
+    btnLainnya.addEventListener("click", (e) => {
+      e.stopPropagation();
+      lainnyaMenu.classList.toggle("translate-y-[150%]");
+      lainnyaMenu.classList.toggle("translate-y-0");
+
+      if (lainnyaMenu.classList.contains("translate-y-0")) {
+        btnLainnya.classList.remove("text-gray-400");
+        btnLainnya.classList.add("text-emerald-600");
+
+        if (iconLainnya) {
+          iconLainnya.classList.remove("fa-bars");
+          iconLainnya.classList.add("fa-times", "rotate-90");
+        }
+      } else {
+        closeMenu();
+      }
+    });
+
+    lainnyaLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        closeMenu();
+      });
+    });
+
+    document.addEventListener("click", (event) => {
+      if (
+        !lainnyaMenu.contains(event.target) &&
+        !btnLainnya.contains(event.target)
+      ) {
+        closeMenu();
+      }
+    });
+  }
+});
+
+// ==========================================
+// 3. ANIMASI SCROLL (REVEAL)
+// ==========================================
 document.addEventListener("DOMContentLoaded", () => {
   const observer = new IntersectionObserver(
     (entries) => {
@@ -19,9 +96,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // ==========================================
-// 2. FUNGSI GRAFIK
+// 4. FUNGSI GRAFIK HASIL CAPAIAN PROGRAM
 // ==========================================
-
 let hasilChartInstance = null;
 
 function initHasilChart() {
@@ -138,85 +214,5 @@ document.addEventListener("DOMContentLoaded", () => {
     initHasilChart();
   } catch (error) {
     console.error("Gagal memuat grafik:", error);
-  }
-});
-
-// ==========================================
-// 3. FUNGSI ZOOM GAMBAR (MODAL)
-// ==========================================
-
-function zoomImage(src) {
-  const modal = document.getElementById("imageModal");
-  const modalImg = document.getElementById("modalContent");
-  if (modal && modalImg) {
-    modal.classList.remove("hidden");
-    modalImg.src = src;
-    document.body.style.overflow = "hidden";
-  }
-}
-
-function closeModal() {
-  const modal = document.getElementById("imageModal");
-  if (modal) {
-    modal.classList.add("hidden");
-    document.body.style.overflow = "auto";
-  }
-}
-
-// ==========================================
-// 4. FUNGSI MENU MOBILE (HP)
-// ==========================================
-
-document.addEventListener("DOMContentLoaded", () => {
-  const btnLainnya = document.getElementById("btnLainnya");
-  const iconLainnya = document.getElementById("iconLainnya");
-  const lainnyaMenu = document.getElementById("lainnyaMenu");
-  const lainnyaLinks = document.querySelectorAll(".lainnya-link");
-
-  const closeMenu = () => {
-    lainnyaMenu.classList.add("translate-y-[150%]");
-    lainnyaMenu.classList.remove("translate-y-0");
-    btnLainnya.classList.add("text-gray-400");
-    btnLainnya.classList.remove("text-emerald-600");
-
-    if (iconLainnya) {
-      iconLainnya.classList.remove("fa-times", "rotate-90");
-      iconLainnya.classList.add("fa-bars");
-    }
-  };
-
-  if (btnLainnya && lainnyaMenu) {
-    btnLainnya.addEventListener("click", (e) => {
-      e.stopPropagation();
-      lainnyaMenu.classList.toggle("translate-y-[150%]");
-      lainnyaMenu.classList.toggle("translate-y-0");
-
-      if (lainnyaMenu.classList.contains("translate-y-0")) {
-        btnLainnya.classList.remove("text-gray-400");
-        btnLainnya.classList.add("text-emerald-600");
-
-        if (iconLainnya) {
-          iconLainnya.classList.remove("fa-bars");
-          iconLainnya.classList.add("fa-times", "rotate-90");
-        }
-      } else {
-        closeMenu();
-      }
-    });
-
-    lainnyaLinks.forEach((link) => {
-      link.addEventListener("click", () => {
-        closeMenu();
-      });
-    });
-
-    document.addEventListener("click", (event) => {
-      if (
-        !lainnyaMenu.contains(event.target) &&
-        !btnLainnya.contains(event.target)
-      ) {
-        closeMenu();
-      }
-    });
   }
 });
