@@ -1,95 +1,16 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&display=swap");
 
-/* ========================================================
-   1. GLOBAL STYLES & RESET (Mengatur Dasar Halaman)
-   ======================================================== */
-
+/* Mencegah highlight kotak biru saat layar HP disentuh/diklik */
 * {
   -webkit-tap-highlight-color: transparent;
 }
+
 body {
   font-family: "Plus Jakarta Sans", sans-serif;
   background-color: #ffffff;
   color: #0f172a;
   margin: 0;
 }
-.main-content {
-  position: relative;
-  z-index: 10;
-  background-color: #ffffff;
-  color: #0f172a;
-}
-
-/* ========================================================
-   2. REUSABLE COMPONENTS & ANIMATION (Dipakai di Banyak Area)
-   ======================================================== */
-.card-glass {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  border-radius: 24px;
-  transition: all 0.3s ease;
-}
-.card-glass:hover {
-  border-color: rgba(16, 185, 129, 0.5);
-  transform: translateY(-10px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-}
-.card-glass:active {
-  transform: scale(0.98);
-}
-
-/* Efek Animasi Muncul saat di-scroll */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease-out;
-}
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ========================================================
-   3. NAVIGATION BAR (Navigasi Atas)
-   ======================================================== */
-
-.nav-glass {
-  background-color: rgba(6, 78, 59, 0.9);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-.nav-link {
-  position: relative;
-  transition: all 0.3s ease;
-}
-.nav-link::after {
-  content: "";
-  position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: -4px;
-  left: 50%;
-  background: #facc15;
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-}
-.nav-link:hover::after {
-  width: 100%;
-}
-.btn-presensi {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-weight: 900;
-  text-transform: uppercase;
-}
-.btn-presensi:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px -5px rgba(250, 204, 21, 0.5);
-}
-
-/* ========================================================
-   4. SECTION: BERANDA (Hero Bagian Atas)
-   ======================================================== */
 
 .hero-bg {
   position: relative;
@@ -103,18 +24,98 @@ body {
   z-index: 1;
 }
 
-/* ========================================================
-   5. SECTION: HASIL CAPAIAN (Tengah Halaman)
-   ======================================================== */
+.main-content {
+  position: relative;
+  z-index: 10;
+  background-color: #ffffff;
+  color: #0f172a;
+}
+
+.nav-glass {
+  background-color: rgba(6, 78, 59, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-link {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 50%;
+  background: #facc15;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.btn-presensi {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.btn-presensi:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(250, 204, 21, 0.5);
+}
+
+.card-glass {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border-radius: 24px;
+  transition: all 0.3s ease;
+}
+
+.card-glass:hover {
+  border-color: rgba(16, 185, 129, 0.5);
+  transform: translateY(-10px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.card-glass:active {
+  transform: scale(0.98);
+}
 
 #hasilChart {
   max-height: 350px;
 }
 
-/* ========================================================
-   6. SECTION: ETALASE PRODUK (Efek Flip Card 3D)
-   ======================================================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
 
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Jarak ekstra di bawah untuk layar HP agar Footer tidak tertutup Menu Bottom Nav */
+@media (max-width: 1024px) {
+  body {
+    padding-bottom: 6rem;
+  }
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* ========================================================
+   UTILITAS CSS UNTUK FLIP CARD 3D DI ETALASE
+   ======================================================== */
 .perspective-1000 {
   perspective: 1000px;
 }
@@ -122,7 +123,7 @@ body {
   transform-style: preserve-3d;
 }
 .backface-hidden {
-  -webkit-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden; /* Safari */
   backface-visibility: hidden;
 }
 .rotate-y-180 {
@@ -137,27 +138,16 @@ body {
 }
 
 /* ========================================================
-   7. FITUR MODAL FOTO (Berlaku untuk Kelas, Etalase, Literasi, Galeri)
+   EFEK ZOOM PADA FOTO 
    ======================================================== */
-
+/* Menambahkan kursor kaca pembesar saat mengarahkan ke foto kelas */
 .cursor-zoom-in {
   cursor: zoom-in;
 }
+
+/* Efek halus saat foto di-hover agar pengguna tahu ini bisa diklik */
 .cursor-zoom-in:hover img {
   opacity: 0.95;
   filter: brightness(1.05);
   transition: all 0.3s ease;
-}
-
-/* ========================================================
-   8. BOTTOM NAVIGATION (Menu Lanjutan HP) & FOOTER
-   ======================================================== */
-
-@media (max-width: 1024px) {
-  body {
-    padding-bottom: 6rem;
-  }
-}
-.pb-safe {
-  padding-bottom: env(safe-area-inset-bottom);
 }
